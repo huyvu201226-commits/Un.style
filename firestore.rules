@@ -1,0 +1,15 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /site/config {
+      allow read: if true;
+      allow write: if request.auth != null
+                   && request.auth.token.email.lower() == "email_admin_cua_ban@gmail.com";
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
