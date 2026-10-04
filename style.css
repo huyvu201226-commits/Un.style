@@ -1,0 +1,96 @@
+:root{
+  --w:min(100%,440px);
+  --bg:#e7e8e5;--ink:#1b1c1b;--brand:#3b4658;--tile:#ffffff;
+  --depth:50;--lift:40px;--p:0;
+  --brandf:'Be Vietnam Pro';--bodyf:'Be Vietnam Pro';
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--bodyf),system-ui,sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh}
+[hidden]{display:none!important}
+
+/* ---------- Hero: thương hiệu cuộn ẩn xuống ---------- */
+.hero{position:fixed;inset:0;display:grid;place-items:center;text-align:center;padding:24px;z-index:0}
+.hero-in{display:flex;flex-direction:column;align-items:center;gap:18px;
+  transform:translateY(calc(var(--p)*-48px)) scale(calc(1 - var(--p)*.32));
+  opacity:calc(1 - var(--p)*1.25);filter:blur(calc(var(--p)*10px));transform-origin:50% 40%}
+.avatar{width:clamp(76px,13vh,108px);height:clamp(76px,13vh,108px);border-radius:50%;object-fit:cover;background:var(--tile);
+  box-shadow:0 12px 32px rgba(0,0,0,.14),0 0 0 4px var(--tile)}
+.brand{font-family:var(--brandf),sans-serif;font-weight:800;font-size:clamp(40px,min(14vw,13vh),88px);
+  letter-spacing:-.03em;line-height:1;color:var(--brand)}
+.desc{max-width:26ch;font-size:clamp(14px,min(3.8vw,2.4vh),18px);line-height:1.55;opacity:.75;white-space:pre-line}
+.cue{position:absolute;bottom:calc(28px + env(safe-area-inset-bottom,0px));font-size:12px;letter-spacing:.04em;opacity:calc(.55 - var(--p)*2);animation:cue 2.2s ease-in-out infinite}
+@keyframes cue{50%{transform:translateY(6px)}}
+
+/* ---------- Hiệu ứng riêng cho tên shop ---------- */
+.fx-shimmer{background:linear-gradient(100deg,var(--brand) 20%,var(--tile) 45%,var(--brand) 70%);background-size:250% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;animation:sh 4s linear infinite}
+@keyframes sh{to{background-position:-250% 0}}
+.fx-glow{text-shadow:0 0 22px color-mix(in srgb,var(--brand) 55%,transparent),0 0 2px var(--brand);animation:gl 3s ease-in-out infinite alternate}
+@keyframes gl{from{filter:brightness(.95)}to{filter:brightness(1.15)}}
+.fx-wave span{display:inline-block;animation:wv 1.8s ease-in-out infinite;animation-delay:calc(var(--i)*.09s)}
+@keyframes wv{50%{transform:translateY(-.14em)}}
+.fx-spread{animation:sp 1.6s cubic-bezier(.2,.8,.2,1) both}
+@keyframes sp{from{letter-spacing:.35em;opacity:0}}
+
+/* ---------- Danh sách: ô vuông mở lần lượt thành thanh chữ nhật ngang ---------- */
+.sheet{position:relative;z-index:1;margin-top:92vh;margin-top:92svh;padding:24px max(18px,env(safe-area-inset-right,0px)) calc(72px + env(safe-area-inset-bottom,0px)) max(18px,env(safe-area-inset-left,0px));min-height:135vh}
+.grid{--h:64px;--s:44px;max-width:var(--w);margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.tile{--t:0;--e:0;display:flex;align-items:center;gap:14px;height:var(--h);
+  width:calc(var(--h) + (100% - var(--h))*var(--e));margin:0 auto;padding:0 0 0 calc((var(--h) - var(--s))/2);overflow:hidden;
+  border:0;border-radius:calc(var(--h)*.32);background:var(--c,var(--tile));color:var(--ink);
+  font:600 var(--fs,15px) var(--bodyf),system-ui,sans-serif;text-align:left;white-space:nowrap;cursor:pointer;
+  box-shadow:0 calc(var(--depth)*.2px) calc(var(--depth)*.5px) rgba(0,0,0,calc(.06 + var(--depth)/450));
+  opacity:var(--t);transform:translateY(calc((1 - var(--t))*var(--lift))) scale(calc(.8 + var(--t)*.2));
+  animation:bob 4.5s ease-in-out infinite;animation-delay:calc(var(--i)*-.7s);transition:scale .2s}
+@keyframes bob{50%{translate:0 calc(var(--depth)*-.07px)}}
+.tile:hover,.tile:focus-visible{scale:1.025}
+.tile:focus-visible{outline:2px solid var(--brand);outline-offset:3px}
+.stk{flex:none;width:var(--s);height:var(--s);display:grid;place-items:center;font-size:28px}
+.stk img{width:100%;height:100%;object-fit:contain}
+.tx{opacity:var(--e);transform:translateX(calc((1 - var(--e))*-10px))}
+.foot{max-width:var(--w);margin:28px auto 0;text-align:center;font-size:13px;line-height:1.8;opacity:.65;white-space:pre-line}
+
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ---------- Thích ứng thiết bị ---------- */
+/* Máy tính bảng: rộng hơn một chút */
+@media(min-width:700px){
+  :root{--w:520px}
+  .grid{--h:70px;--s:48px;gap:14px}
+  .desc{max-width:32ch}
+}
+/* Laptop: giữ gọn, không phóng to theo màn hình */
+@media(min-width:1100px){
+  :root{--w:460px}
+  .grid{--h:62px;--s:42px;gap:12px}
+}
+/* Màn hình thấp (điện thoại xoay ngang, laptop nhỏ) */
+@media(max-height:560px){
+  .hero-in{gap:8px}
+  .avatar{width:60px;height:60px}
+  .desc{max-width:46ch;font-size:13px;line-height:1.4}
+  .cue{display:none}
+  .grid{--h:56px;--s:38px}
+}
+
+/* ---------- Hiệu ứng tải kiểu Facebook: khung xám nhấp nháy rồi ảnh hiện dần ---------- */
+.sk{display:block;position:relative;overflow:hidden;border-radius:12px;background:rgba(255,255,255,.55);box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.sk::after{content:"";position:absolute;inset:0;transform:translateX(-100%);
+  background:linear-gradient(100deg,transparent 20%,rgba(255,255,255,.95) 50%,transparent 80%);animation:skl 1.3s ease-in-out infinite}
+@keyframes skl{to{transform:translateX(100%)}}
+/* Trong lúc tải: nền sáng trung tính, không lộ màu/nội dung cũ */
+body{transition:background .5s}
+.loading body{background:#f0f2f5}
+.skel{display:none;flex-direction:column;align-items:center;gap:18px}
+.skel .c{width:clamp(76px,13vh,108px);height:clamp(76px,13vh,108px);border-radius:50%}
+.skel .b{width:min(70vw,300px);height:clamp(40px,8vh,64px)}
+.skel .l{width:min(60vw,240px);height:14px;border-radius:8px}
+.skel .s{width:min(42vw,170px)}
+.loading .skel{display:flex}
+.loading .avatar,.loading .brand,.loading .desc,.loading .foot,.loading .cue{display:none}
+.grid>.sk{width:var(--h);height:var(--h);margin:0 auto;border-radius:calc(var(--h)*.32)}
+.avatar,.stk img{opacity:0;filter:blur(10px);transition:opacity .5s,filter .6s}
+.avatar.ld,.stk img.ld{opacity:1;filter:none}
+.ready .hero,.ready .grid{animation:show .7s ease both}
+@keyframes show{from{opacity:0;filter:blur(8px)}}
