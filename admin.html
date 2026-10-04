@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Quản trị · Un.style</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body class="adm">
+
+<aside class="admin">
+  <form id="login" class="box" hidden>
+    <h2>Đăng nhập quản trị</h2>
+    <label>Email<input type="email" id="em" required autocomplete="username"></label>
+    <label>Mật khẩu<input type="password" id="pw" required autocomplete="current-password"></label>
+    <p id="err" class="err"></p>
+    <button class="btn">Đăng nhập</button>
+  </form>
+
+  <div id="panel" class="box" hidden>
+    <div class="top"><h2>Chỉnh sửa trang</h2><a href="index.html" target="_blank" rel="noopener">Mở trang khách</a></div>
+    <p id="mode" class="note"></p>
+
+    <fieldset><legend>Thương hiệu</legend>
+      <label>Tên shop<input data-k="name"></label>
+      <label>Mô tả<textarea data-k="desc" rows="3"></textarea></label>
+      <label>Avatar<input type="file" id="file" accept="image/*"></label>
+      <label>Hiệu ứng tên shop
+        <select data-k="fx">
+          <option value="none">Không</option>
+          <option value="shimmer">Ánh kim chạy</option>
+          <option value="glow">Phát sáng</option>
+          <option value="wave">Sóng từng chữ</option>
+          <option value="spread">Giãn chữ</option>
+        </select>
+      </label>
+    </fieldset>
+
+    <fieldset><legend>Chữ</legend>
+      <label>Font tên shop<select data-k="brandFont" class="fonts"></select></label>
+      <label>Font toàn trang<select data-k="bodyFont" class="fonts"></select></label>
+    </fieldset>
+
+    <fieldset><legend>Hiệu ứng</legend>
+      <label>Độ cuộn <output></output><input type="range" data-k="scroll" min="0.4" max="2" step="0.1"></label>
+      <label>Độ nổi của ô <output></output><input type="range" data-k="depth" min="0" max="100" step="1"></label>
+    </fieldset>
+
+    <fieldset><legend>Kích thước ô</legend>
+      <label class="chk"><input type="checkbox" data-k="auto"> Tự động căn theo thiết bị</label>
+      <p class="note">Bật: số bên dưới là cỡ chuẩn trên điện thoại. Máy tính bảng tự tăng, laptop giữ gọn, màn hình thấp tự hạ chiều cao, ô không vượt khỏi màn hình. Tắt: dùng đúng số này ở mọi thiết bị.</p>
+      <label>Chiều cao ô <output></output><input type="range" data-k="tileH" min="44" max="100" step="2"></label>
+      <label>Độ rộng ô <output></output><input type="range" data-k="tileW" min="260" max="560" step="10"></label>
+      <label>Giãn cách giữa các ô <output></output><input type="range" data-k="tileGap" min="4" max="32" step="1"></label>
+    </fieldset>
+
+    <fieldset><legend>Màu sắc</legend>
+      <div class="colors">
+        <label>Nền<input type="color" data-k="bg"></label>
+        <label>Chữ<input type="color" data-k="ink"></label>
+        <label>Thương hiệu<input type="color" data-k="brand"></label>
+        <label>Ô liên kết<input type="color" data-k="tile"></label>
+      </div>
+    </fieldset>
+
+    <fieldset><legend>Ô liên kết</legend>
+      <div id="links"></div>
+      <button type="button" class="btn ghost" id="add">Thêm ô</button>
+    </fieldset>
+
+    <fieldset><legend>Thông tin cuối trang</legend>
+      <textarea data-k="foot" rows="4"></textarea>
+    </fieldset>
+
+    <div class="bar">
+      <button type="button" class="btn" id="save">Lưu thay đổi</button>
+      <button type="button" class="btn ghost" id="reset">Đặt lại</button>
+      <button type="button" class="btn ghost" id="out">Thoát</button>
+    </div>
+  </div>
+</aside>
+
+<section class="pv">
+  <div class="dev" role="group" aria-label="Kích thước xem trước">
+    <button type="button" class="btn ghost" data-w="390px">Điện thoại</button>
+    <button type="button" class="btn ghost" data-w="820px">Máy tính bảng</button>
+    <button type="button" class="btn" data-w="100%">Laptop</button>
+  </div>
+  <iframe id="pv" src="index.html" title="Xem trước trang khách"></iframe>
+</section>
+
+<script type="module" src="admin.js?v=4"></script>
+</body>
+</html>

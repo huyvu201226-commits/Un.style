@@ -1,0 +1,18 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Cấu hình trang: ai cũng xem được, chỉ tài khoản admin được ghi
+    match /site/config {
+      allow read: if true;
+      allow write: if request.auth != null
+                   && request.auth.token.email == "EMAIL_ADMIN_CUA_BAN@gmail.com"
+                   && request.resource.size() < 1000000;
+    }
+
+    // Chặn mọi thứ còn lại
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
